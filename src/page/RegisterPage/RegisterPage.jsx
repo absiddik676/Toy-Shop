@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import bgImage from '../../assets/images/bg-image/colorful-balloons-floating-sky_1308-30484.avif'
 import bgImage2 from '../../assets/images/bg-image/fluffy-toy-texture-close-up_23-2149686892.avif'
+import { AuthContext } from '../../provider/AuthProvider';
 
 const RegisterPage = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
+    const {createUser} = useContext(AuthContext)
 
 
     const handleSubmit = (e) => {
@@ -21,6 +23,14 @@ const RegisterPage = () => {
         const password = form.password.value;
         const PhotoURL = form.PhotoURL.value;
         console.log(name, email, password, PhotoURL);
+        createUser(email,password)
+        .then(result =>{
+            console.log(result.user);
+            e.target.reset()
+        })
+        .catch(error =>{{
+            console.log(error);
+        }})
 
     };
 
@@ -88,7 +98,7 @@ const RegisterPage = () => {
                             id="Photo-URL"
                             name="PhotoURL"
                             className="w-full border m-0 border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                            required
+                            
                         />
                     </div>
                     <button
@@ -97,6 +107,7 @@ const RegisterPage = () => {
                     >
                         Register
                     </button>
+                    
 
                 </form>
                 <div className="divider">OR</div>
