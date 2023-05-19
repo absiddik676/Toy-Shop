@@ -1,7 +1,18 @@
 import { FaGoogle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useState } from 'react';
+import bgImage from '../../assets/images/bg-image/colorful-balloons-floating-sky_1308-30484.avif'
+import bgImage2 from '../../assets/images/bg-image/fluffy-toy-texture-close-up_23-2149686892.avif'
+
 
 const LoginPage = () => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -17,12 +28,12 @@ const LoginPage = () => {
     <div
       className="min-h-screen flex items-center justify-center"
       style={{
-        backgroundImage: `url('https://img.freepik.com/free-vector/colorful-balloons-floating-sky_1308-30484.jpg?size=626&ext=jpg&ga=GA1.1.443112825.1680188378&semt=sph')`,
+        backgroundImage: `url()`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      <div className="container mx-auto bg-white shadow-md rounded-md p-8 max-w-md">
+      <div style={{ backgroundImage: `url(${`${bgImage2}`})` }} className="container mx-auto bg-white shadow-md rounded-md p-8 max-w-md">
         <h2 className="text-3xl font-bold text-gray-800 mb-6">Login</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-6">
@@ -42,23 +53,35 @@ const LoginPage = () => {
             <label htmlFor="password" className="text-gray-800 font-semibold mb-2 block">
               Password
             </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-              required
-            />
+            <div className="relative">
+              <input
+                type={passwordVisible ? 'text' : 'password'}
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                required
+              />
+              <div
+                className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                onClick={togglePasswordVisibility}
+              >
+                {passwordVisible ? (
+                  <FaEyeSlash className="text-gray-700" />
+                ) : (
+                  <FaEye className="text-gray-700" />
+                )}
+              </div>
+            </div>
           </div>
           <button
-            className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 w-full mb-4"
+            className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full"
             type="submit"
           >
             Login
           </button>
         </form>
-        
+
         <div className="divider">OR</div>
 
         <button
