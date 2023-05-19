@@ -32,7 +32,7 @@ const SubTabs = () => {
             style={0 === selectedIndex ? activeTabStyle : {}}
             onClick={()=>handleLoadData('naruto')}
           >
-          Naruto
+          Naruto  
           </Tab>
           <Tab
             className={`text-gray-600 outline-none hover:text-indigo-600 px-6 py-3 rounded-md cursor-pointer transition-colors duration-300 ${1 === selectedIndex ? 'active-tab' : ''
