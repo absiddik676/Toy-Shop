@@ -74,24 +74,32 @@ const SubTabs = () => {
         </TabList>
 
         <TabPanel >
+          <div className='max-w-7xl mx-auto grid grid-cols-3'>
           {
             toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
           }
+          </div>
         </TabPanel>
         <TabPanel>
+        <div className='max-w-7xl mx-auto grid grid-cols-3'>
           {
             toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
           }
+          </div>
         </TabPanel>
         <TabPanel>
+        <div className='max-w-7xl mx-auto grid grid-cols-3'>
           {
             toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
           }
+          </div>
         </TabPanel>
         <TabPanel>
+        <div className='max-w-7xl mx-auto grid grid-cols-3'>
           {
             toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
           }
+          </div>
         </TabPanel>
       </Tabs>
     </div>
