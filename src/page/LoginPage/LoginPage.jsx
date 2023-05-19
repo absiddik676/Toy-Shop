@@ -6,6 +6,7 @@ import { useContext, useState } from 'react';
 import bgImage from '../../assets/images/bg-image/colorful-balloons-floating-sky_1308-30484.avif'
 import bgImage2 from '../../assets/images/bg-image/fluffy-toy-texture-close-up_23-2149686892.avif'
 import { AuthContext } from '../../provider/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 
 const LoginPage = () => {
@@ -106,7 +107,7 @@ const LoginPage = () => {
               </div>
             </div>
           </div>
-          <p className='text-red-400 py-3 text-center  font-semibold'>{error}</p>
+          
           <button
             className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full"
             type="submit"
@@ -114,6 +115,7 @@ const LoginPage = () => {
             Login
           </button>
           <p className='text-center mt-2'>forgot password , <Link onClick={handelForgetPass} className='text-blue-700 font-semibold'>Reset Now</Link></p>
+          <p className='text-red-400 text-center  font-semibold'>{error}</p>
         </form>
 
         <div className="divider">OR</div>

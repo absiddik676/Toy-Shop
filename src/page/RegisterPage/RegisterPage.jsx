@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useContext, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { FaGoogle } from 'react-icons/fa';
@@ -8,28 +9,49 @@ import { AuthContext } from '../../provider/AuthProvider';
 
 const RegisterPage = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [error, setError] = useState('')
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
-    const {createUser} = useContext(AuthContext)
+    const {createUser,addUserNameAndPhoto} = useContext(AuthContext)
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission...
+        setError(' ')
+
         const form = e.target;
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        const PhotoURL = form.PhotoURL.value;
-        console.log(name, email, password, PhotoURL);
+        let PhotoURL = form.PhotoURL.value;
+
+        if (password.length === 0 || email.length === 0) {
+            setError("Please Enter Your Email and Password");
+            return
+        }
+
+        else if (password.length < 6) {
+            setError('password must have 6 character');
+            return
+        }
+
+        if(PhotoURL.length === 0){
+            PhotoURL = 'https://picsum.photos/200/300'
+        }
+
+
         createUser(email,password)
         .then(result =>{
             console.log(result.user);
+            addUserNameAndPhoto(name, PhotoURL);
             e.target.reset()
         })
         .catch(error =>{{
             console.log(error);
+            if(error.code === "auth/email-already-in-use"){
+                setError('Email already in use')
+            }
         }})
 
     };
@@ -110,6 +132,7 @@ const RegisterPage = () => {
                     
 
                 </form>
+                <p className='text-red-400 text-center mt-5' >{error}</p>
                 <div className="divider">OR</div>
                 <button
                     className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-red-500 w-full mt-4"
