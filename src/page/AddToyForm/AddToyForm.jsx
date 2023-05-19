@@ -1,44 +1,54 @@
-import { useState } from 'react';
+import { useContext, } from 'react';
+
+import { AuthContext } from '../../provider/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const AddToyForm = () => {
-    const [toyData, setToyData] = useState({
-        pictureUrl: '',
-        name: '',
-        sellerName: '',
-        sellerEmail: '',
-        subCategory: '',
-        price: '',
-        rating: '',
-        quantity: '',
-        description: '',
-    });
+    const {user} = useContext(AuthContext)
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setToyData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
-
+    
     const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission, such as saving the toy data
-        console.log(toyData);
-        // Reset form fields
-        setToyData({
-            pictureUrl: '',
-            name: '',
-            sellerName: '',
-            sellerEmail: '',
-            subCategory: '',
-            price: '',
-            rating: '',
-            quantity: '',
-            description: '',
-        });
-    };
 
+        e.preventDefault()
+        const from = e.target;
+        const ToyName = from.ToyName.value;
+        const pictureUrl = from.pictureUrl.value;
+        const sellerName = from.sellerName.value;
+        const sellerEmail = from.sellerEmail.value;
+        const category = from.category.value;
+        const price = from.price.value;
+        const quantity = from.quantity.value;
+        const rating = from.quantity.value;
+        const description = from.description.value;
+
+        const  toyInfo = {
+            ToyName,
+            pictureUrl,
+            sellerName,
+            sellerEmail,
+            category,
+            price,
+            quantity,
+            rating,
+            description
+        }
+        console.log(toyInfo);
+
+        
+        fetch('http://localhost:5000/addToy',{
+            method:'POST',
+            headers:{
+                'content-type' : 'application/json'
+            },
+            body:JSON.stringify(toyInfo)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data);
+            toast.success('Your Toy added successfully ')
+            from.reset()
+        })
+    }
     return (
         <div className='bg-no-repeat pt-6 w-full bg-cover' style={{ backgroundImage: `url(${`https://img.freepik.com/premium-vector/natural-landscape-background-video-conferencing_23-2148670211.jpg?size=626&ext=jpg&ga=GA1.1.443112825.1680188378&semt=ais`})` }}>
             <div className="w-3/5  mx-auto bg-[#1b1b1bb4] p-6 rounded-md shadow-md ">
@@ -50,12 +60,11 @@ const AddToyForm = () => {
                                 Toy Name
                             </label>
                             <input
+                               
                                 className="w-full  focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-gray-300 p-2 rounded-md"
                                 type="text"
                                 id="name"
-                                name="name"
-                                value={toyData.name}
-                                onChange={handleChange}
+                                name="ToyName"
                             />
                         </div>
                         <div className="mb-4 w-1/2">
@@ -63,12 +72,11 @@ const AddToyForm = () => {
                                 Picture URL
                             </label>
                             <input
+                                
                                 className="w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-gray-300 p-2 rounded-md"
                                 type="text"
                                 id="pictureUrl"
                                 name="pictureUrl"
-                                value={toyData.pictureUrl}
-                                onChange={handleChange}
                             />
                         </div>
                     </div>
@@ -78,12 +86,12 @@ const AddToyForm = () => {
                                 Seller Name
                             </label>
                             <input
+                               defaultValue={user?.displayName}
                                 className="w-full border focus:outline-none focus:ring-2 focus:ring-indigo-500 border-gray-300 p-2 rounded-md"
                                 type="text"
                                 id="sellerName"
                                 name="sellerName"
-                                value={toyData.sellerName}
-                                onChange={handleChange}
+                                
                             />
                         </div>
                         <div className="mb-4 w-1/2">
@@ -91,12 +99,12 @@ const AddToyForm = () => {
                                 Seller Email
                             </label>
                             <input
+                                defaultValue={user?.email}
                                 className="w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-gray-300 p-2 rounded-md"
                                 type="email"
                                 id="sellerEmail"
                                 name="sellerEmail"
-                                value={toyData.sellerEmail}
-                                onChange={handleChange}
+                                
                             />
                         </div>
                     </div>
@@ -106,16 +114,16 @@ const AddToyForm = () => {
                                 Category
                             </label>
                             <select
+                                
                                 id="category"
                                 name="category"
-                                value={toyData.category}
-                                onChange={handleChange}
                                 className="w-full border focus:outline-none focus:ring-2 focus:ring-indigo-500 border-gray-300 p-2 rounded-md mt-3"
                             >
                                 <option value="">Select a category</option>
-                                <option value="action-figures">Action Figures</option>
-                                <option value="plush-toys">Plush Toys</option>
-                                <option value="board-games">Board Games</option>
+                                <option value="pokemon-toys">Pokemon toys </option>
+                                <option value="Doraemon-toys">Doraemon toys</option>
+                                <option value="Naruto-action-figures"> Naruto action figures </option>
+                                <option value="Demon-slayer-toys"> Demon slayer toys</option>
                                 {/* Add more options as needed */}
                             </select>
                         </div>
@@ -124,12 +132,11 @@ const AddToyForm = () => {
                                 Price
                             </label>
                             <input
+                                
                                 className="w-full border focus:outline-none focus:ring-2 focus:ring-indigo-500 border-gray-300 p-2 rounded-md"
                                 type="text"
                                 id="price"
                                 name="price"
-                                value={toyData.price}
-                                onChange={handleChange}
                             />
                         </div>
                     </div>
@@ -139,12 +146,11 @@ const AddToyForm = () => {
                                 Available Quantity
                             </label>
                             <input
+                                
                                 className="w-full border focus:outline-none focus:ring-2 focus:ring-indigo-500 border-gray-300 p-2 rounded-md"
                                 type="text"
                                 id="quantity"
                                 name="quantity"
-                                value={toyData.quantity}
-                                onChange={handleChange}
                             />
                         </div>
                         <div className="mb-4 w-1/2">
@@ -152,12 +158,11 @@ const AddToyForm = () => {
                                 Rating
                             </label>
                             <input
+                                
                                 className="w-full border focus:outline-none focus:ring-2 focus:ring-indigo-500 border-gray-300 p-2 rounded-md"
                                 type="text"
                                 id="rating"
                                 name="rating"
-                                value={toyData.rating}
-                                onChange={handleChange}
                             />
                         </div>
                     </div>
@@ -166,12 +171,11 @@ const AddToyForm = () => {
                             Detail Description
                         </label>
                         <textarea
+                            
                             className="w-full border border-gray-300 p-2 rounded-md resize-none h-24 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             id="description"
                             name="description"
                             rows="4"
-                            value={toyData.description}
-                            onChange={handleChange}
                         ></textarea>
                     </div>
                     <button

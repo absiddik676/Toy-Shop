@@ -1,15 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import ShowToy from '../ShowToy/ShowToy';
 
 
 const SubTabs = () => {
-  const [category, setCategory] = useState('naruto')
+  const [category, setCategory] = useState('pokemon-toys')
+  const [toys, setToys] = useState([])
   const [selectedIndex, setSelectedIndex] = useState(0);
   const handleTabSelect = (index) => {
     setSelectedIndex(index);
   };
+
 
 
   console.log(category);
@@ -18,9 +21,19 @@ const SubTabs = () => {
     color: 'blue',
   };
 
-  const handleLoadData = (text) =>{
+  const handleLoadData = (text) => {
     setCategory(text)
   }
+  useEffect(() => {
+    fetch(`http://localhost:5000/toys/${category}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setToys(data)
+      })
+  }, [category])
+
+
 
   return (
     <div>
@@ -30,36 +43,55 @@ const SubTabs = () => {
             className={`text-gray-600 outline-none hover:text-indigo-600 px-6 py-3 rounded-md cursor-pointer transition-colors duration-300 ${0 === selectedIndex ? 'active-tab' : ''
               }`}
             style={0 === selectedIndex ? activeTabStyle : {}}
-            onClick={()=>handleLoadData('naruto')}
+            onClick={() => handleLoadData('pokemon-toys')}
           >
-          Naruto  
+            Pokemon toys
           </Tab>
           <Tab
             className={`text-gray-600 outline-none hover:text-indigo-600 px-6 py-3 rounded-md cursor-pointer transition-colors duration-300 ${1 === selectedIndex ? 'active-tab' : ''
               }`}
             style={1 === selectedIndex ? activeTabStyle : {}}
-            onClick={()=>handleLoadData('Demon slayer')}
+            onClick={() => handleLoadData('Doraemon-toys')}
           >
-            Demon slayer
+            Doraemon toys
           </Tab>
           <Tab
             className={`text-gray-600 outline-none hover:text-indigo-600 px-6 py-3 rounded-md cursor-pointer transition-colors duration-300 ${2 === selectedIndex ? 'active-tab' : ''
               }`}
             style={2 === selectedIndex ? activeTabStyle : {}}
-            onClick={()=>handleLoadData('Frozen dolls')}
+            onClick={() => handleLoadData('Naruto-action-figures')}
           >
-            Frozen dolls
+            Naruto action figures
+          </Tab>
+          <Tab
+            className={`text-gray-600 outline-none hover:text-indigo-600 px-6 py-3 rounded-md cursor-pointer transition-colors duration-300 ${2 === selectedIndex ? 'active-tab' : ''
+              }`}
+            style={3 === selectedIndex ? activeTabStyle : {}}
+            onClick={() => handleLoadData('Demon-slayer-toys')}
+          >
+            Demon slayer toys
           </Tab>
         </TabList>
 
-        <TabPanel>
-          <p>Content for naruto</p>
+        <TabPanel >
+          {
+            toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
+          }
         </TabPanel>
         <TabPanel>
-          <p>Content for Demon slayer</p>
+          {
+            toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
+          }
         </TabPanel>
         <TabPanel>
-          <p>Content for Frozen dolls</p>
+          {
+            toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
+          }
+        </TabPanel>
+        <TabPanel>
+          {
+            toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
+          }
         </TabPanel>
       </Tabs>
     </div>
