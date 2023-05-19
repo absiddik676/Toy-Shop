@@ -19,7 +19,7 @@ const router = createBrowserRouter([
             element:<LoginPage/>
         },
         {
-            path:'/add-toy',
+            path:'add-toy',
             element:<AddToyForm/>
         },
         {
