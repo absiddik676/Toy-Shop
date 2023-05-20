@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from '../../provider/AuthProvider';
 import MyToyRow from './MyToyRow';
 import { useToasts } from 'react-toast-notifications';
@@ -10,6 +10,8 @@ const MyToy = () => {
     const [updatedToyInfo, setUpdatedToyInfo] = useState({})
     const [control, setControl] = useState(false)
     const { addToast, toastStack } = useToasts();
+
+    const formRef = useRef(null);
 
     // updated data get state
     const [price, setPrice] = useState('');
@@ -53,9 +55,13 @@ const MyToy = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                setControl(!control)
                 if (data.modifiedCount > 0) {
+                    setControl(!control)
                     addToast('Your data updated successfully', { appearance: 'success', autoDismiss: true, });
+                    formRef.current.reset();
+                }
+                else if(data.modifiedCount < 1){
+                    addToast('Your cant add any data', { appearance: 'error', autoDismiss: true, })
                 }
             })
         console.log(id);
@@ -72,6 +78,7 @@ const MyToy = () => {
                     setControl(!control)
                     if (toastStack.length === 0) {
                         addToast('Your item deleted successfully ', { appearance: 'success', autoDismiss: true, });
+                        
                     }
                 }
                 console.log(data);
@@ -107,11 +114,11 @@ const MyToy = () => {
 
 
             {/* toy data updated modal body */}
-
+            <a href="#my-modal-2" className="btn modal-toggle"></a>
             <div className="modal" id="my-modal-2">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg text-center mb-6"> Update <span className='text-pink-500'>{updatedToyInfo?.ToyName}</span> Information </h3>
-                    <form action="">
+                    <form ref={formRef} action="">
                         <div className='flex gap-5 '>
                             <div className="mb-4 w-1/2">
                                 <label className="block  text-black font-bold mb-2" htmlFor="name">
@@ -154,7 +161,7 @@ const MyToy = () => {
                             ></textarea>
                         </div>
 
-                        <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+                        <a href="#" className="btn btn-sm btn-circle absolute right-2 top-2">X</a>
                         <div className="modal-action">
                             <a href="#" type='submit' onClick={() => handelUpdateData(updatedToyInfo?._id)} className="text-md border-l border-r hover:scale-110 focus:outline-none flex justify-center px-4 py-3 rounded-md font-bold cursor-pointer  hover:bg-teal-700 hover:text-white  bg-teal-100  text-teal-700 
                         border duration-200 ease-in-out 
