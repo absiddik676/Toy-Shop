@@ -11,6 +11,12 @@ const MyToy = () => {
     const [control, setControl] = useState(false)
     const { addToast, toastStack } = useToasts();
 
+    // updated data get state
+    const [price, setPrice] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [description, setDescription] = useState('');
+
+
     useEffect(() => {
         fetch(`http://localhost:5000/myToy/${user?.email}`)
             .then(res => res.json())
@@ -20,6 +26,39 @@ const MyToy = () => {
     const handelOpenModal = (toyInfo) => {
         setUpdatedToyInfo(toyInfo);
 
+    }
+
+    const handelUpdateData = (id) => {
+        const updatedInfo = {
+            price,
+            quantity,
+            description
+        }
+        if(price.length === 0){
+            updatedInfo.price = updatedToyInfo.price
+        }
+        if(quantity.length === 0){
+            updatedInfo.quantity = updatedToyInfo.quantity
+        }
+        if(description.length === 0){
+            updatedInfo.description = updatedToyInfo.quantity
+        }
+        fetch(`http://localhost:5000/updateToy/${id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(updatedInfo)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setControl(!control)
+                if (data.modifiedCount > 0) {
+                    addToast('Your data updated successfully', { appearance: 'success', autoDismiss: true, });
+                }
+            })
+        console.log(id);
     }
 
     const handelDeleteToy = (id) => {
@@ -38,7 +77,6 @@ const MyToy = () => {
                 console.log(data);
             })
     }
-    console.log(updatedToyInfo);
     return (
         <div>
             <div className="overflow-x-auto max-w-7xl mx-auto">
@@ -80,7 +118,7 @@ const MyToy = () => {
                                     Toy Price
                                 </label>
                                 <input
-
+                                    onChange={(e) => setPrice(e.target.value)}
                                     className="w-full  focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-gray-300 p-2 rounded-md"
                                     type="text"
                                     id="Price"
@@ -93,7 +131,7 @@ const MyToy = () => {
                                     quantity
                                 </label>
                                 <input
-
+                                    onChange={(e) => setQuantity(e.target.value)}
                                     className="w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-gray-300 p-2 rounded-md"
                                     type="text"
                                     id="quantity"
@@ -107,7 +145,7 @@ const MyToy = () => {
                                 Detail Description
                             </label>
                             <textarea
-
+                                onChange={(e) => setDescription(e.target.value)}
                                 className="w-full border border-gray-300 p-2 rounded-md resize-none h-20 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 id="description"
                                 name="description"
@@ -115,16 +153,14 @@ const MyToy = () => {
                                 defaultValue={updatedToyInfo?.description}
                             ></textarea>
                         </div>
+
+                        <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+                        <div className="modal-action">
+                            <a href="#" type='submit' onClick={() => handelUpdateData(updatedToyInfo?._id)} className="text-md border-l border-r hover:scale-110 focus:outline-none flex justify-center px-4 py-3 rounded-md font-bold cursor-pointer  hover:bg-teal-700 hover:text-white  bg-teal-100  text-teal-700 
+                        border duration-200 ease-in-out 
+                        border-teal-600 transition items-center"><FaPen className="mr-2" /></a>
+                        </div>
                     </form>
-                    <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-                    <div className="modal-action">
-                        <button><a href="#" className="btn"></a></button>
-                        <button
-                            className="flex items-center bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
-                            <FaPen className="mr-2" />
-                            Update
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
