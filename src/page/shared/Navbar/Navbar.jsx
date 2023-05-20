@@ -59,16 +59,16 @@ const Navbar = () => {
                 user?.email ? <button onClick={handelLogOut} className="flex items-center bg-transparent text-red-500 hover:bg-red-500   hover:text-white  font-semibold py-1 px-2 rounded-full border border-red-500 hover:border-red-700 transition duration-300">
                   <RiLogoutCircleRLine className="mr-1" size={16} />
                   Logout
-                </button> : <button className="flex items-center justify-center border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-semibold py-2 px-4 rounded-full">
+                </button> : <Link to='/login'><button className="flex items-center justify-center border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-semibold py-2 px-4 rounded-full">
                   <FiLogIn className="mr-2" size={20} />
                   Login
-                </button>
+                </button></Link>
               }
               {
                 user?.email ? <div className="avatar flex items-center">
                   <div className="w-12  rounded-full">
                     <img src={user?.photoURL} />
-                  </div>
+                  </div> 
                 </div> : ''
               }
             </div>
