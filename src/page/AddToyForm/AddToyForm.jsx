@@ -2,9 +2,11 @@ import { useContext, } from 'react';
 
 import { AuthContext } from '../../provider/AuthProvider';
 import { toast } from 'react-hot-toast';
+import { useToasts } from 'react-toast-notifications';
 
 const AddToyForm = () => {
     const {user} = useContext(AuthContext)
+    const { addToast, toastStack } = useToasts();
 
     
     const handleSubmit = (e) => {
@@ -32,7 +34,7 @@ const AddToyForm = () => {
             rating,
             description
         }
-        console.log(toyInfo);
+       
 
         
         fetch('http://localhost:5000/addToy',{
@@ -45,7 +47,9 @@ const AddToyForm = () => {
         .then(res => res.json())
         .then(data =>{
             console.log(data);
-            toast.success('Your Toy added successfully ')
+            if (toastStack.length === 0) {
+                addToast('Your Toy added successfully', { appearance: 'success',autoDismiss: true, });
+              }
             from.reset()
         })
     }
@@ -60,7 +64,7 @@ const AddToyForm = () => {
                                 Toy Name
                             </label>
                             <input
-                               
+                               required
                                 className="w-full  focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-gray-300 p-2 rounded-md"
                                 type="text"
                                 id="name"
@@ -72,7 +76,7 @@ const AddToyForm = () => {
                                 Picture URL
                             </label>
                             <input
-                                
+                                required
                                 className="w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-gray-300 p-2 rounded-md"
                                 type="text"
                                 id="pictureUrl"
@@ -114,7 +118,7 @@ const AddToyForm = () => {
                                 Category
                             </label>
                             <select
-                                
+                                required
                                 id="category"
                                 name="category"
                                 className="w-full border focus:outline-none focus:ring-2 focus:ring-indigo-500 border-gray-300 p-2 rounded-md mt-3"
@@ -132,7 +136,7 @@ const AddToyForm = () => {
                                 Price
                             </label>
                             <input
-                                
+                                required
                                 className="w-full border focus:outline-none focus:ring-2 focus:ring-indigo-500 border-gray-300 p-2 rounded-md"
                                 type="text"
                                 id="price"
