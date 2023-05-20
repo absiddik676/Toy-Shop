@@ -30,7 +30,7 @@ const Navbar = () => {
             <div className={`hidden md:block ${isOpen ? 'block' : 'hidden'}`}>
               <div className="ml-4 text-white font-semibold gap-5 flex items-center md:ml-6">
                 <ActiveRoute to='/'>Home</ActiveRoute>
-                <ActiveRoute to='/allToy'>All Toys</ActiveRoute>
+                <ActiveRoute to='/allToys'>All Toys</ActiveRoute>
                 <ActiveRoute to='/myToy'>My Toys</ActiveRoute>
                 <ActiveRoute to='/add-toy'>Add A Toy</ActiveRoute>
                 <ActiveRoute to='/blog'>Blog</ActiveRoute>
