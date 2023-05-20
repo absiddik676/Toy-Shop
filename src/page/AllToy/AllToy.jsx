@@ -6,25 +6,26 @@ import { FiSearch } from 'react-icons/fi';
 
 const AllToy = () => {
     const [allToys, setAllToys] = useState([])
-    const [searchValue, setSearchValue] = useState('');
-    const [limit,setLimit] = useState(5);
+    const [limit,setLimit] = useState(20);
 
 
     useEffect(() => {
         fetch(`http://localhost:5000/allToy?limit=${limit}`)
             .then(res => res.json())
             .then(data => setAllToys(data))
-    }, [])
-
-
-
-    const handleSearchChange = (e) => {
-        setSearchValue(e.target.value);
-    };
+    }, []);
+    console.log(allToys);
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        onSearch(searchValue);
+        const text = e.target.searchText.value;
+        console.log(text);
+        fetch(`http://localhost:5000/searchToy/${text}?limit=${limit}`)
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data);
+            setAllToys(data)
+        })
     };
     return (
         <div className='max-w-7xl mx-auto mt-5'>
@@ -33,8 +34,7 @@ const AllToy = () => {
                     <input
                         type="text"
                         placeholder="Search..."
-                        value={searchValue}
-                        onChange={handleSearchChange}
+                        name='searchText'
                         className="border border-gray-300   rounded-r-none rounded-md px-10 py-2 focus:outline-none border-r-0 "
                     />
                     <button
