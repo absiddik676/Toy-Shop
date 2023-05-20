@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { RiLogoutCircleRLine, RiLoginBoxLine } from 'react-icons/ri';
 import ActiveRoute from '../../../Routes/AcriveRoute/AcriveRoute';
 import { FiLogIn } from 'react-icons/fi';
+import { Tooltip } from 'react-tooltip'
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logOut } = useContext(AuthContext)
@@ -67,7 +68,7 @@ const Navbar = () => {
               {
                 user?.email ? <div className="avatar flex items-center">
                   <div className="w-12  rounded-full">
-                    <img src={user?.photoURL} />
+                    <img className='cursor-pointer' data-tooltip-content={user?.displayName} data-tooltip-id="my-tooltip" src={user?.photoURL} />
                   </div> 
                 </div> : ''
               }
@@ -84,7 +85,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-
+        <Tooltip id="my-tooltip" />  
     </div>
   );
 };
