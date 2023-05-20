@@ -2,30 +2,32 @@
 import React, { useEffect, useState } from 'react';
 import AllToyRow from './AllToyRow';
 import { FiSearch } from 'react-icons/fi';
+import { FaArrowAltCircleRight } from 'react-icons/fa';
 
 
 const AllToy = () => {
     const [allToys, setAllToys] = useState([])
-    const [limit,setLimit] = useState(20);
-
+    const [limit, setLimit] = useState(20);
 
     useEffect(() => {
         fetch(`http://localhost:5000/allToy?limit=${limit}`)
             .then(res => res.json())
             .then(data => setAllToys(data))
-    }, []);
-    console.log(allToys);
+    }, [limit]);
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
         const text = e.target.searchText.value;
+        if(text.length === 0){
+            return;
+        }
         console.log(text);
         fetch(`http://localhost:5000/searchToy/${text}?limit=${limit}`)
-        .then(res => res.json())
-        .then(data =>{
-            console.log(data);
-            setAllToys(data)
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setAllToys(data)
+            })
     };
     return (
         <div className='max-w-7xl mx-auto mt-5'>

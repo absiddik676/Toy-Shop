@@ -2,15 +2,29 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../../provider/AuthProvider';
 import { Link } from 'react-router-dom';
+import { RiLogoutCircleRLine, RiLoginBoxLine } from 'react-icons/ri';
 import ActiveRoute from '../../../Routes/AcriveRoute/AcriveRoute';
-
+import { FiLogIn } from 'react-icons/fi';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext)
   console.log(user);
+
+  const handelLogOut = () => {
+    logOut()
+      .then(() => { })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+
+
   return (
     <div>
       <nav className="bg-gray-800">
@@ -31,18 +45,32 @@ const Navbar = () => {
               <div className="ml-4 text-white font-semibold gap-5 flex items-center md:ml-6">
                 <ActiveRoute to='/'>Home</ActiveRoute>
                 <ActiveRoute to='/allToys'>All Toys</ActiveRoute>
-                <ActiveRoute to='/myToy'>My Toys</ActiveRoute>
-                <ActiveRoute to='/add-toy'>Add A Toy</ActiveRoute>
+                {
+                  user?.email ? <><ActiveRoute to='/myToy'>My Toys</ActiveRoute>
+                    <ActiveRoute to='/add-toy'>Add A Toy</ActiveRoute></> : ''
+                }
                 <ActiveRoute to='/blog'>Blog</ActiveRoute>
-                
+
               </div>
             </div>
-            <div>
-              <div className="avatar flex items-center">
-                <div className="w-12  rounded-full">
-                  <img src={user?.photoURL}/>
-                </div>
-              </div>
+
+            <div className='flex gap-5'>
+              {
+                user?.email ? <button onClick={handelLogOut} className="flex items-center bg-transparent text-red-500 hover:bg-red-500   hover:text-white  font-semibold py-1 px-2 rounded-full border border-red-500 hover:border-red-700 transition duration-300">
+                  <RiLogoutCircleRLine className="mr-1" size={16} />
+                  Logout
+                </button> : <button className="flex items-center justify-center border border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 font-semibold py-2 px-4 rounded-full">
+                  <FiLogIn className="mr-2" size={20} />
+                  Login
+                </button>
+              }
+              {
+                user?.email ? <div className="avatar flex items-center">
+                  <div className="w-12  rounded-full">
+                    <img src={user?.photoURL} />
+                  </div>
+                </div> : ''
+              }
             </div>
           </div>
         </div>
