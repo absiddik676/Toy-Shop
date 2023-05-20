@@ -36,6 +36,7 @@ const MyToy = () => {
             quantity,
             description
         }
+        console.log(updatedInfo);
         if(price.length === 0){
             updatedInfo.price = updatedToyInfo.price
         }
@@ -59,6 +60,9 @@ const MyToy = () => {
                     setControl(!control)
                     addToast('Your data updated successfully', { appearance: 'success', autoDismiss: true, });
                     formRef.current.reset();
+                    setPrice('')
+                    setQuantity('')
+                    setDescription('')
                 }
                 else if(data.modifiedCount < 1){
                     addToast('Your cant add any data', { appearance: 'error', autoDismiss: true, })
