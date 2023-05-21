@@ -3,6 +3,7 @@ import { AuthContext } from '../../provider/AuthProvider';
 import MyToyRow from './MyToyRow';
 import { useToasts } from 'react-toast-notifications';
 import { FaPen } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const MyToy = () => {
     const { user } = useContext(AuthContext);
@@ -71,32 +72,41 @@ const MyToy = () => {
         console.log(id);
     }
 
-    const handelDeleteToy = (id) => {
+      
+
+    const handelDeleteToy = (id) =>{
         console.log(id);
-        fetch(`https://assignment-11-server-puce-alpha.vercel.app/deleteToy/${id}`, {
-            method: 'DELETE'
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.deletedCount > 0) {
-                    setControl(!control)
-                    if (toastStack.length === 0) {
-                        addToast('Your item deleted successfully ', { appearance: 'success', autoDismiss: true, });
-
-                    }
-                }
-                console.log(data);
-            })
-    }
-
-    const handelFilterData = (option) =>{
-        console.log(option);
-        fetch(`https://assignment-11-server-puce-alpha.vercel.app/sortData/${option}?email=${user?.email}`)
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            console.log('sidd');
+            if (result.isConfirmed) {
+                fetch(`https://assignment-11-server-puce-alpha.vercel.app/deleteToy/${id}`,{
+                    method:'DELETE'
+                })
         .then(res=>res.json())
         .then(data => {
-            setMyToys(data)
-            console.log(data)
+            if(data.deletedCount > 0){
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+            }
+            setControl(!control)
+            
         })
+              
+            }
+          })
+
+        
     }
     return (
         <div>
