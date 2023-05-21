@@ -20,7 +20,7 @@ const MyToy = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/myToy/${user?.email}`)
+        fetch(`https://assignment-11-server-puce-alpha.vercel.app/myToy/${user?.email}`)
             .then(res => res.json())
             .then(data => setMyToys(data))
     }, [control])
@@ -46,7 +46,7 @@ const MyToy = () => {
         if (description.length === 0) {
             updatedInfo.description = updatedToyInfo.quantity
         }
-        fetch(`http://localhost:5000/updateToy/${id}`, {
+        fetch(`https://assignment-11-server-puce-alpha.vercel.app/updateToy/${id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -73,7 +73,7 @@ const MyToy = () => {
 
     const handelDeleteToy = (id) => {
         console.log(id);
-        fetch(`http://localhost:5000/deleteToy/${id}`, {
+        fetch(`https://assignment-11-server-puce-alpha.vercel.app/deleteToy/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -91,7 +91,7 @@ const MyToy = () => {
 
     const handelFilterData = (option) =>{
         console.log(option);
-        fetch(`http://localhost:5000/sortData/${option}?email=${user?.email}`)
+        fetch(`https://assignment-11-server-puce-alpha.vercel.app/sortData/${option}?email=${user?.email}`)
         .then(res=>res.json())
         .then(data => {
             setMyToys(data)

@@ -11,7 +11,7 @@ const AllToy = () => {
     const [allToys, setAllToys] = useState([])
     const [limit, setLimit] = useState(20);
     useEffect(() => {
-        fetch(`http://localhost:5000/allToy?limit=${limit}`)
+        fetch(`https://assignment-11-server-puce-alpha.vercel.app/allToy?limit=${limit}`)
             .then(res => res.json())
             .then(data => setAllToys(data))
     }, [limit]);
@@ -23,7 +23,7 @@ const AllToy = () => {
             return;
         }
         console.log(text);
-        fetch(`http://localhost:5000/searchToy/${text}?limit=${limit}`)
+        fetch(`https://assignment-11-server-puce-alpha.vercel.app/searchToy/${text}?limit=${limit}`)
             .then(res => res.json())
             .then(data => {
                 setAllToys(data)

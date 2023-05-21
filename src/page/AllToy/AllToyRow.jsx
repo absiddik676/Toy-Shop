@@ -8,7 +8,7 @@ const AllToyRow = ({ toy, }) => {
     const { user, setSingleData } = useContext(AuthContext)
     const handelSingData = (id) => {
         console.log(id);
-        fetch(`http://localhost:5000/toy/${id}`)
+        fetch(`https://assignment-11-server-puce-alpha.vercel.app/toy/${id}`)
             .then(res => res.json())
             .then(data => setSingleData(data))
     }

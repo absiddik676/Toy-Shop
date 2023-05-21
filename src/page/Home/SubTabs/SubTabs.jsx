@@ -3,17 +3,17 @@ import React, { useEffect, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import ShowToy from '../ShowToy/ShowToy';
+import Spinner from '../../shared/Spinner/Spinner';
 
 
 const SubTabs = () => {
   const [category, setCategory] = useState('pokemon-toys')
+  const [loading, setLoading] = useState(false)
   const [toys, setToys] = useState([])
   const [selectedIndex, setSelectedIndex] = useState(0);
   const handleTabSelect = (index) => {
     setSelectedIndex(index);
   };
-
-
 
   console.log(category);
   const activeTabStyle = {
@@ -25,11 +25,13 @@ const SubTabs = () => {
     setCategory(text)
   }
   useEffect(() => {
-    fetch(`http://localhost:5000/toys/${category}`)
+    setLoading(true);
+    fetch(`https://assignment-11-server-puce-alpha.vercel.app/toys/${category}`)
       .then(res => res.json())
       .then(data => {
         console.log(data);
         setToys(data)
+        setLoading(false)
       })
   }, [category])
 
@@ -76,32 +78,40 @@ const SubTabs = () => {
         </TabList>
 
         <TabPanel >
+        {loading ? <div className='mb-96'><Spinner /></div> :
           <div className='max-w-7xl mx-auto grid grid-cols-3'>
           {
             toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
           }
           </div>
+}
         </TabPanel>
         <TabPanel>
-        <div className='max-w-7xl mx-auto grid grid-cols-3'>
+        {loading ? <div className='mb-96'><Spinner /></div> :
+          <div className='max-w-7xl mx-auto grid grid-cols-3'>
           {
             toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
           }
           </div>
+}
         </TabPanel>
         <TabPanel>
-        <div className='max-w-7xl mx-auto grid grid-cols-3'>
+        {loading ? <div className='mb-96'><Spinner /></div> :
+          <div className='max-w-7xl mx-auto grid grid-cols-3'>
           {
             toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
           }
           </div>
+}
         </TabPanel>
         <TabPanel>
-        <div className='max-w-7xl mx-auto grid grid-cols-3'>
+        {loading ?<><div className='mb-96'><Spinner /></div></> :
+          <div className='max-w-7xl mx-auto grid grid-cols-3'>
           {
             toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
           }
           </div>
+}
         </TabPanel>
       </Tabs>
     </div>
