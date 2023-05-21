@@ -1,5 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../../provider/AuthProvider';
+import { FaRegBookmark, FaShareAlt, FaEye, FaRegStar, FaStar } from "react-icons/fa";
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
+
+import Rating from 'react-rating'
 
 const Modal = ({ data }) => {
     const { singleData, user } = useContext(AuthContext)
@@ -22,16 +26,32 @@ const Modal = ({ data }) => {
                                 <div className="w-full md:w-1/2 items-start px-5">
                                     <div className="mb-10">
                                         <h1 className="font-bold uppercase text-2xl mb-5">{ToyName}</h1>
-                                        <p className="text-md">{description}<a href="#" className="opacity-50 text-gray-900 hover:opacity-100 inline-block text-xs leading-none border-b border-gray-900">MORE <i className="mdi mdi-arrow-right"></i></a></p>
+                                        <p className="text-md">{description}</p>
                                     </div>
                                     <div>
-                                        <div className="flex items-center gap-7 align-bottom  mr-5">
+                                        <div className="flex items-center justify-between gap-7 align-bottom  mr-5">
                                             <div>
                                                 <span className="text-2xl leading-none align-baseline">$</span>
                                                 <span className="font-bold text-5xl leading-none align-baseline">{price}</span>
                                             </div>
                                             <span className="font-bold text-2xl ">Available {quantity} pice</span>
 
+                                        </div>
+                                        <div className=' mt-4 flex '>
+                                            
+                                            
+                                            
+                                            <p className='text-lg mr-2 font-semibold'>Rating :-</p>
+                                            
+                                            <Rating className=' mr-3'
+                                                placeholderRating={rating}
+                                                emptySymbol={<FaRegStar className='text-2xl' />}
+                                                readonly
+                                                placeholderSymbol={<FaStar className='text-warning text-2xl' />}
+                                                fullSymbol={<FaStar className='text-2xl' />}
+                                            />
+                                            
+                                            
                                         </div>
 
                                         <div className='mt-5'>
@@ -41,6 +61,9 @@ const Modal = ({ data }) => {
                                             <h2 className='mt-2'><span className='text-lg font-bold'>Email</span> : {sellerEmail}</h2>
 
                                         </div>
+
+
+
 
                                         {/* <div className="inline-block align-bottom">
                                             <button className="bg-yellow-300 opacity-75 hover:opacity-100 text-yellow-900 hover:text-gray-900 rounded-full px-10 py-2 font-semibold"><i className="mdi mdi-cart -ml-2 mr-2"></i> BUY NOW</button>
