@@ -8,43 +8,53 @@ import MyToy from "../page/MyToy/MyToy";
 import PrivateRoute from "./PrivateRout/PrivateRoute";
 import Modal from "../page/shared/Modal/Modal";
 import AllToy from "../page/AllToy/AllToy";
+import Blog from "../page/Blog/Blog";
+import ErrorPage from "../ErrorPage/ErrorPage";
 
 
 const router = createBrowserRouter([
     {
-      path: "/",
-      element: <MainLayout/>,
-      children:[
-        {
-            path:'/',
-            element:<Home/>
-        },
-        {
-            path:'login',
-            element:<LoginPage/>
-        },
-        {
-            path:'add-toy',
-            element:<AddToyForm/>
-        },
-        {
-            path:'register',
-            element:<RegisterPage/>
-        },
-        {
-            path:'allToy',
-            element:<AllToy/>
-        },
-        
-        {
-            path:'myToy',
-            element:<PrivateRoute><MyToy/></PrivateRoute>
-        },
-      ]
+        path: "/",
+        element: <MainLayout />,
+        children: [
+            {
+                path: '/',
+                element: <Home />
+            },
+            {
+                path: 'login',
+                element: <LoginPage />
+            },
+            {
+                path: 'add-toy',
+                element: <AddToyForm />
+            },
+            {
+                path: 'register',
+                element: <RegisterPage />
+            },
+            {
+                path: 'allToy',
+                element: <AllToy />
+            },
+
+            {
+                path: 'myToy',
+                element: <PrivateRoute><MyToy /></PrivateRoute>
+            },
+            {
+                path: 'Blog',
+                element: <Blog />
+            },
+        ]
+
     },
-  ]);
+    {
+        path:'*',
+        element:<ErrorPage/>
+    }
+]);
 
 export default router
 
 
- 
