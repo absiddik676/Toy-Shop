@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../../provider/AuthProvider';
-import { FaRegBookmark, FaShareAlt, FaEye, FaRegStar, FaStar } from "react-icons/fa";
-import { AiOutlineStar, AiFillStar } from "react-icons/ai";
+import { FaRegStar, FaStar } from "react-icons/fa";
+
 
 import Rating from 'react-rating'
 
@@ -13,7 +13,9 @@ const Modal = ({ data }) => {
         <div>
             <input type="checkbox" id="my-modal-5" className="modal-toggle" />
             <div className="modal">
+                
                 <div className="modal-box w-11/12 max-w-5xl">
+                <label htmlFor="my-modal-5" className="btn z-50 btn-md btn-circle absolute right-2 top-2">✕</label>
                     <div className="min-w-screen min-h-0 bg-yellow-300 flex items-center lg:p-5 overflow-hidden relative">
                         <div className="w-full max-w-6xl rounded bg-white shadow-xl p-5 lg:p-5 mx-auto text-gray-800 relative md:text-left">
                             <div className="md:flex -mx-10">
@@ -72,9 +74,6 @@ const Modal = ({ data }) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="modal-action">
-                        <label htmlFor="my-modal-5" className="btn">Yay!</label>
                     </div>
                 </div>
             </div>

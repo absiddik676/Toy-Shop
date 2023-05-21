@@ -1,37 +1,29 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import Rating from 'react-rating';
+import { FaRegStar, FaStar } from "react-icons/fa";
+import { AuthContext } from '../../../provider/AuthProvider';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { IoHeart } from 'react-icons/io5';
-import { toast } from 'react-hot-toast';
-import { AiOutlineEye } from 'react-icons/ai';
-
+import { AiOutlineEye, AiOutlineDelete } from 'react-icons/ai';
 const ShowToy = ({ toy }) => {
-  const { ToyName, pictureUrl, price, rating } = toy
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleHover = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-  const handelAddWishList = (name) => {
-    toast.success(`${name} add wish list`)
-  }
-
+  const { _id,ToyName, pictureUrl, price, rating } = toy
+  const { user, setSingleData } = useContext(AuthContext)
+  const handelSingData = (id) => {
+    console.log(id);
+    fetch(`http://localhost:5000/toy/${id}`)
+        .then(res => res.json())
+        .then(data => setSingleData(data))
+}
   return (
-    <motion.div
-      className="max-w-xs mb-5 rounded overflow-hidden shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300"
+    <div className="max-w-2xl mb-11 mx-auto">
+       <motion.div
+       data-aos="flip-left" data-aos-delay="100" data-aos-anchor=".example-selector"
+      className="max-w-xs h-[420px] relative mb-5 w-[800px] rounded overflow-hidden shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300"
       whileHover={{ scale: 1.05 }}
-      onMouseEnter={handleHover}
-      onMouseLeave={handleMouseLeave}
+      
     >
-      {isHovered && (
-        <div onClick={() => handelAddWishList(ToyName)} className="absolute top-0 right-0 mt-2 mr-2">
-          <IoHeart className="text-red-500 text-2xl" />
-        </div>
-      )}
+     
       <img
         src={pictureUrl}
         alt={name}
@@ -42,24 +34,22 @@ const ShowToy = ({ toy }) => {
         <div className="flex justify-between mt-2">
           <span className="text-gray-700">${price}</span>
           <div className="flex items-center">
-            <span className="text-gray-700">{rating}</span>
-            <svg
-              className="w-4 h-4 fill-current text-yellow-500 ml-1"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 16.666l4.472 2.792-1.41-4.908L18.82 7.74l-4.94-.338L10 2 7.12 7.403l-4.94.338L6.938 14.55 5.528 19.46 10 16.667z"
-              />
-            </svg>
+            <Rating className=' mr-3'
+              placeholderRating={rating}
+              emptySymbol={<FaRegStar className='text-2xl' />}
+              readonly
+              placeholderSymbol={<FaStar className='text-warning text-2xl' />}
+              fullSymbol={<FaStar className='text-2xl' />}
+            />
           </div>
         </div>
-        <button className="flex items-center bg-transparent hover:bg-blue-500 text-blue-500 hover:text-white font-semibold py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-          <AiOutlineEye className="mr-2" size={20} />
-          View Details
-        </button>
+        
+        {
+                user ? <label onClick={() => handelSingData(_id)} htmlFor={user?.email ? 'my-modal-5' : ''}  className="flex mb-2 absolute cursor-pointer bottom-0 items-center bg-transparent hover:bg-blue-500 text-blue-500 hover:text-white font-semibold py-2 px-4 border border-blue-500 hover:border-transparent rounded">Details</label> : <Link  className="flex mb-2 absolute bottom-0 items-center bg-transparent hover:bg-blue-500 text-blue-500 cursor-pointer hover:text-white font-semibold py-2 px-4 border border-blue-500 hover:border-transparent rounded" to={'/login'} >Details</Link>
+              }
       </div>
-    </motion.div>
+    </motion.div> 
+    </div>
   );
 };
 
