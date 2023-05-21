@@ -6,6 +6,7 @@ import { AuthContext } from '../../../provider/AuthProvider';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AiOutlineEye, AiOutlineDelete } from 'react-icons/ai';
+import 'aos/dist/aos.css';
 const ShowToy = ({ toy }) => {
   const { _id,ToyName, pictureUrl, price, rating } = toy
   const { user, setSingleData } = useContext(AuthContext)
@@ -16,9 +17,9 @@ const ShowToy = ({ toy }) => {
         .then(data => setSingleData(data))
 }
   return (
-    <div className="max-w-2xl mb-11 mx-auto">
+    <div  className="max-w-2xl mt-11 mb-11 mx-auto">
        <motion.div
-       data-aos="flip-left" data-aos-delay="100" data-aos-anchor=".example-selector"
+       data-aos="fade-up" data-aos-offset="100" data-aos-easing="ease-in-sine" data-aos-duration="200"
       className="max-w-xs h-[420px] relative mb-5 w-[800px] rounded overflow-hidden shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300"
       whileHover={{ scale: 1.05 }}
       

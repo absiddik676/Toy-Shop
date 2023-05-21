@@ -8,6 +8,9 @@ import { Toaster } from 'react-hot-toast'
 import { ToastProvider } from 'react-toast-notifications'
 import Modal from './page/shared/Modal/Modal'
 import PrivateRoute from './Routes/PrivateRout/PrivateRoute'
+<script>
+    AOS.init();
+  </script>
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

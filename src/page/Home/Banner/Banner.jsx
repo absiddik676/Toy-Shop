@@ -6,7 +6,7 @@ import bannerImg2 from '../../../assets/images/banner/Pre-OrderwbR.webp'
 const Banner = () => {
     return (
         <div>
-            <div className="carousel w-full">
+            <div className="carousel w-full mt-10">
                 <div id="slide1" className="carousel-item relative w-full">
                     <img src={bannerImg1} className="w-full" />
                     <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">

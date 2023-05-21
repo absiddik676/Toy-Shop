@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useContext, useState } from 'react';
 import bgImage from '../../assets/images/bg-image/colorful-balloons-floating-sky_1308-30484.avif'
@@ -13,12 +13,13 @@ const LoginPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState('');
   const [email,setEmail] = useState('');
-  const { loginUser, forgetPassword} = useContext(AuthContext)
-
+  const { loginUser, forgetPassword,signInWithGoogle} = useContext(AuthContext)
+  const navigate = useNavigate()
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || '/'
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -35,6 +36,7 @@ const LoginPage = () => {
       .catch(error => {
         if (error.code === "auth/wrong-password") {
           setError("Invalid password. Please try again.");
+          navigate(from,{replace:true})
         }
         else if (error.code === "auth/user-not-found") {
           setError('User not found. Please try again.')
@@ -52,9 +54,16 @@ const LoginPage = () => {
     })
   ]
 
-  const handleGoogleSignIn = () => {
-    // Handle Google sign in logic...
-  };
+  const handleLoginWithGoogle = () =>{
+    signInWithGoogle()
+    .then(result =>{
+        console.log(result.user);
+        navigate(from,{replace:true}) 
+    })
+    .catch(error =>{
+        console.log(error);
+    })
+}
 
   return (
     <div
@@ -122,7 +131,7 @@ const LoginPage = () => {
 
         <button
           className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-red-500 w-full mt-4"
-          onClick={handleGoogleSignIn}
+          onClick={handleLoginWithGoogle} 
         >
           <FaGoogle className="mr-2" />
           Sign in with Google

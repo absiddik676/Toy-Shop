@@ -37,13 +37,13 @@ const MyToy = () => {
             description
         }
         console.log(updatedInfo);
-        if(price.length === 0){
+        if (price.length === 0) {
             updatedInfo.price = updatedToyInfo.price
         }
-        if(quantity.length === 0){
+        if (quantity.length === 0) {
             updatedInfo.quantity = updatedToyInfo.quantity
         }
-        if(description.length === 0){
+        if (description.length === 0) {
             updatedInfo.description = updatedToyInfo.quantity
         }
         fetch(`http://localhost:5000/updateToy/${id}`, {
@@ -64,7 +64,7 @@ const MyToy = () => {
                     setQuantity('')
                     setDescription('')
                 }
-                else if(data.modifiedCount < 1){
+                else if (data.modifiedCount < 1) {
                     addToast('Your cant add any data', { appearance: 'error', autoDismiss: true, })
                 }
             })
@@ -82,15 +82,35 @@ const MyToy = () => {
                     setControl(!control)
                     if (toastStack.length === 0) {
                         addToast('Your item deleted successfully ', { appearance: 'success', autoDismiss: true, });
-                        
+
                     }
                 }
                 console.log(data);
             })
     }
+
+    const handelFilterData = (option) =>{
+        console.log(option);
+        fetch(`http://localhost:5000/sortData/${option}?email=${user?.email}`)
+        .then(res=>res.json())
+        .then(data => {
+            setMyToys(data)
+            console.log(data)
+        })
+    }
     return (
         <div>
+            
             <div className="overflow-x-auto max-w-7xl mx-auto">
+            <select
+                id="filter"
+                onClick={(e)=>handelFilterData(e.target.value)}
+                className="block my-10 mx-auto py-2 px-4 border border-gray-300 bg-white text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
+                <option value="">Filter By Price</option>
+                <option value="-1">Highest Price</option>
+                <option  value="1">Lowest Price</option>
+            </select>
                 <table className="table table-zebra w-full">
                     {/* head */}
                     <thead>
@@ -174,7 +194,7 @@ const MyToy = () => {
                     </form>
                 </div>
             </div>
-            
+
         </div>
     );
 };

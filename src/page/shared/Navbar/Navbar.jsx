@@ -6,6 +6,7 @@ import { RiLogoutCircleRLine, RiLoginBoxLine } from 'react-icons/ri';
 import ActiveRoute from '../../../Routes/AcriveRoute/AcriveRoute';
 import { FiLogIn } from 'react-icons/fi';
 import { Tooltip } from 'react-tooltip'
+import logo from '../../../assets/images/logo/connexe_toys_logot5_1562832972__41152.webp'
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logOut } = useContext(AuthContext)
@@ -32,7 +33,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0">
-              <a href="/" className="text-white text-xl font-bold">Toy Shop</a>
+            <img className='w-36' src={logo} alt="" />
             </div>
             <div className="block md:hidden">
               <button

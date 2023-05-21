@@ -37,10 +37,12 @@ const SubTabs = () => {
 
   return (
     <div>
+
+      <h1 className="font-extrabold text-transparent text-4xl text-center bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Available Now</h1>
       <Tabs selectedIndex={selectedIndex} onSelect={handleTabSelect}>
         <TabList className="flex justify-center p-4 rounded-md space-x-4">
           <Tab
-            className={`text-gray-600 outline-none hover:text-indigo-600 px-6 py-3 rounded-md cursor-pointer transition-colors duration-300 ${0 === selectedIndex ? 'active-tab' : ''
+            className={`text-gray-600 outline-none font-semibold hover:text-indigo-600 px-6 py-3 rounded-md cursor-pointer transition-colors duration-300 ${0 === selectedIndex ? 'active-tab' : ''
               }`}
             style={0 === selectedIndex ? activeTabStyle : {}}
             onClick={() => handleLoadData('pokemon-toys')}
@@ -56,7 +58,7 @@ const SubTabs = () => {
             Doraemon toys
           </Tab>
           <Tab
-            className={`text-gray-600 outline-none hover:text-indigo-600 px-6 py-3 rounded-md cursor-pointer transition-colors duration-300 ${2 === selectedIndex ? 'active-tab' : ''
+            className={`text-gray-600 outline-none font-semibold hover:text-indigo-600 px-6 py-3 rounded-md cursor-pointer transition-colors duration-300 ${2 === selectedIndex ? 'active-tab' : ''
               }`}
             style={2 === selectedIndex ? activeTabStyle : {}}
             onClick={() => handleLoadData('Naruto-action-figures')}
@@ -64,7 +66,7 @@ const SubTabs = () => {
             Naruto action figures
           </Tab>
           <Tab
-            className={`text-gray-600 outline-none hover:text-indigo-600 px-6 py-3 rounded-md cursor-pointer transition-colors duration-300 ${2 === selectedIndex ? 'active-tab' : ''
+            className={`text-gray-600 outline-none font-semibold hover:text-indigo-600 px-6 py-3 rounded-md cursor-pointer transition-colors duration-300 ${2 === selectedIndex ? 'active-tab' : ''
               }`}
             style={3 === selectedIndex ? activeTabStyle : {}}
             onClick={() => handleLoadData('Demon-slayer-toys')}
