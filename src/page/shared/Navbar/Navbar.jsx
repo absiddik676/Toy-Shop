@@ -45,7 +45,7 @@ const Navbar = () => {
             <div className={`hidden md:block ${isOpen ? 'block' : 'hidden'}`}>
               <div className="ml-4 text-white font-semibold gap-5 flex items-center md:ml-6">
                 <ActiveRoute to='/'>Home</ActiveRoute>
-                <ActiveRoute to='/allToys'>All Toys</ActiveRoute>
+                <ActiveRoute to='/allToy'>All Toys</ActiveRoute>
                 {
                   user?.email ? <><ActiveRoute to='/myToy'>My Toys</ActiveRoute>
                     <ActiveRoute to='/add-toy'>Add A Toy</ActiveRoute></> : ''
@@ -85,7 +85,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-        <Tooltip id="my-tooltip" />  
+        <Tooltip id="my-tooltip" className='text-red-900'/>  
     </div>
   );
 };

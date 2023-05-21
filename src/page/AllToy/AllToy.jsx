@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 import AllToyRow from './AllToyRow';
 import { FiSearch } from 'react-icons/fi';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
+import Modal from '../shared/Modal/Modal';
+import PrivateRoute from '../../Routes/PrivateRout/PrivateRoute';
 
 
 const AllToy = () => {
     const [allToys, setAllToys] = useState([])
     const [limit, setLimit] = useState(20);
-
     useEffect(() => {
         fetch(`http://localhost:5000/allToy?limit=${limit}`)
             .then(res => res.json())
@@ -25,10 +26,10 @@ const AllToy = () => {
         fetch(`http://localhost:5000/searchToy/${text}?limit=${limit}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setAllToys(data)
             })
     };
+
     return (
         <div className='max-w-7xl mx-auto mt-5'>
             <div className='flex justify-center mb-9'>
@@ -67,7 +68,10 @@ const AllToy = () => {
                     <tbody>
 
                         {
-                            allToys.map(toy => <AllToyRow key={toy._id} toy={toy}></AllToyRow>)
+                            allToys.map(toy => <AllToyRow 
+                                key={toy._id}
+                                toy={toy}
+                                 ></AllToyRow>)
                         }
                     </tbody>
                 </table>

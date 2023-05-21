@@ -4,9 +4,10 @@ import Home from "../page/Home/Home/Home";
 import LoginPage from "../page/LoginPage/LoginPage";
 import AddToyForm from "../page/AddToyForm/AddToyForm";
 import RegisterPage from "../page/RegisterPage/RegisterPage";
-import AllToy from "../page/AllToy/AllToy";
 import MyToy from "../page/MyToy/MyToy";
 import PrivateRoute from "./PrivateRout/PrivateRoute";
+import Modal from "../page/shared/Modal/Modal";
+import AllToy from "../page/AllToy/AllToy";
 
 
 const router = createBrowserRouter([
@@ -27,15 +28,16 @@ const router = createBrowserRouter([
             element:<AddToyForm/>
         },
         {
-            path:'/register',
+            path:'register',
             element:<RegisterPage/>
         },
         {
-            path:'/allToys',
-            element:<PrivateRoute><AllToy/></PrivateRoute>
+            path:'allToy',
+            element:<AllToy/>
         },
+        
         {
-            path:'/myToy',
+            path:'myToy',
             element:<PrivateRoute><MyToy/></PrivateRoute>
         },
       ]
@@ -43,3 +45,6 @@ const router = createBrowserRouter([
   ]);
 
 export default router
+
+
+ 

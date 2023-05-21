@@ -75,7 +75,7 @@ const Gallery = () => {
 
                 </div>
             </section>
-
+           
         </div>
     );
 };
