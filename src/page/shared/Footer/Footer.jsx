@@ -4,7 +4,7 @@ import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 const Footer = () => {
     return (
         <div>
-            <footer className="footer mt-9 p-10 bg-base-200 text-base-content">
+            <footer className="footer sm:grid grid-cols-2 mt-9 p-10 bg-base-200 text-base-content">
                 <div>
                     <h2 className="text-xl font-semibold">CONNEXE TOYS</h2>
                     <p className="text-sm">〒100-0001 Street, Chiyoda City, Japan</p>

@@ -42,9 +42,9 @@ const SubTabs = () => {
 
       <h1 className="font-extrabold text-transparent text-4xl text-center bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Available Now</h1>
       <Tabs selectedIndex={selectedIndex} onSelect={handleTabSelect}>
-        <TabList className="flex justify-center p-4 rounded-md space-x-4">
+        <TabList className="md:flex justify-center p-4 rounded-md space-x-4">
           <Tab
-            className={`text-gray-600 outline-none font-semibold hover:text-indigo-600 px-6 py-3 rounded-md cursor-pointer transition-colors duration-300 ${0 === selectedIndex ? 'active-tab' : ''
+            className={`text-gray-600 ml-4 outline-none font-semibold  hover:text-indigo-600 px-6 py-3 rounded-md cursor-pointer transition-colors duration-300 ${0 === selectedIndex ? 'active-tab' : ''
               }`}
             style={0 === selectedIndex ? activeTabStyle : {}}
             onClick={() => handleLoadData('pokemon-toys')}
@@ -79,7 +79,7 @@ const SubTabs = () => {
 
         <TabPanel >
         {loading ? <div className='mb-96'><Spinner /></div> :
-          <div className='max-w-7xl mx-auto grid grid-cols-3'>
+          <div className='max-w-7xl mx-auto md:grid grid-cols-3'>
           {
             toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
           }
@@ -88,7 +88,7 @@ const SubTabs = () => {
         </TabPanel>
         <TabPanel>
         {loading ? <div className='mb-96'><Spinner /></div> :
-          <div className='max-w-7xl mx-auto grid grid-cols-3'>
+          <div className='max-w-7xl mx-auto md:grid grid-cols-3'>
           {
             toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
           }
@@ -97,7 +97,7 @@ const SubTabs = () => {
         </TabPanel>
         <TabPanel>
         {loading ? <div className='mb-96'><Spinner /></div> :
-          <div className='max-w-7xl mx-auto grid grid-cols-3'>
+          <div className='max-w-7xl mx-auto md:grid grid-cols-3'>
           {
             toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
           }
@@ -106,7 +106,7 @@ const SubTabs = () => {
         </TabPanel>
         <TabPanel>
         {loading ?<><div className='mb-96'><Spinner /></div></> :
-          <div className='max-w-7xl mx-auto grid grid-cols-3'>
+          <div className='max-w-7xl mx-auto md:grid grid-cols-3'>
           {
             toys.map(toy => <ShowToy key={toy._id} toy={toy}></ShowToy>)
           }
