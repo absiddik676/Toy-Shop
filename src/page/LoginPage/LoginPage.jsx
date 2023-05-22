@@ -7,9 +7,11 @@ import bgImage from '../../assets/images/bg-image/colorful-balloons-floating-sky
 import bgImage2 from '../../assets/images/bg-image/fluffy-toy-texture-close-up_23-2149686892.avif'
 import { AuthContext } from '../../provider/AuthProvider';
 import { toast } from 'react-hot-toast';
+import titleName from '../../Hooks/Hooks';
 
 
 const LoginPage = () => {
+  titleName('Login')
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState('');
   const [email,setEmail] = useState('');

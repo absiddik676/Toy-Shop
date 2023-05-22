@@ -4,6 +4,7 @@ import MyToyRow from './MyToyRow';
 import { useToasts } from 'react-toast-notifications';
 import { FaPen } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import titleName from '../../Hooks/Hooks';
 
 const MyToy = () => {
     const { user } = useContext(AuthContext);
@@ -13,7 +14,7 @@ const MyToy = () => {
     const { addToast, toastStack } = useToasts();
 
     const formRef = useRef(null);
-
+    titleName('My Toy')
     // updated data get state
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');

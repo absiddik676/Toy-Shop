@@ -5,11 +5,13 @@ import { FiSearch } from 'react-icons/fi';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 import Modal from '../shared/Modal/Modal';
 import PrivateRoute from '../../Routes/PrivateRout/PrivateRoute';
+import titleName from '../../Hooks/Hooks';
 
 
 const AllToy = () => {
     const [allToys, setAllToys] = useState([])
     const [limit, setLimit] = useState(20);
+    titleName('All Toy')
     useEffect(() => {
         fetch(`https://assignment-11-server-puce-alpha.vercel.app/allToy?limit=${limit}`)
             .then(res => res.json())

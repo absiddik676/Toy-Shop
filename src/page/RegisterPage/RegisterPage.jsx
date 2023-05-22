@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom';
 import bgImage from '../../assets/images/bg-image/colorful-balloons-floating-sky_1308-30484.avif'
 import bgImage2 from '../../assets/images/bg-image/fluffy-toy-texture-close-up_23-2149686892.avif'
 import { AuthContext } from '../../provider/AuthProvider';
+import titleName from '../../Hooks/Hooks';
 
 const RegisterPage = () => {
+    titleName('Register')
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [error, setError] = useState('')
     const togglePasswordVisibility = () => {

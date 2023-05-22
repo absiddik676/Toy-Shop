@@ -1,9 +1,10 @@
 import React from 'react';
+import titleName from '../../Hooks/Hooks';
 
 
 
 const Blog = () => {
-
+    titleName('Blog')
 
     return (
         <div className='my-16'>

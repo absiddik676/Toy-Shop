@@ -3,11 +3,12 @@ import { useContext, } from 'react';
 import { AuthContext } from '../../provider/AuthProvider';
 import { toast } from 'react-hot-toast';
 import { useToasts } from 'react-toast-notifications';
+import titleName from '../../Hooks/Hooks';
 
 const AddToyForm = () => {
     const {user} = useContext(AuthContext)
     const { addToast, toastStack } = useToasts();
-
+    titleName('Add Toy')
     
     const handleSubmit = (e) => {
 
